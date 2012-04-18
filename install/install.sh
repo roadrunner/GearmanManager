@@ -52,7 +52,7 @@ fi
 # symlink proper library wrapper into bin
 
 if [ $1 != "" ]; then
-  PHPLIB = $1
+  PHPLIB=$1
 else
   echo "Which PHP library to use, pecl/gearman or PEAR::Net_Gearman?"
   select PHPLIB in "pecl" "pear"; do
