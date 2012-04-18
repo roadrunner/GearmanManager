@@ -4,7 +4,6 @@ DAEMON=/usr/local/bin/gearman-manager
 INIT_D=/etc/init.d/gearman-manager
 INSTALL_DIR=/usr/local/share/gearman-manager
 CONFIG_DIR=/etc/gearman-manager
-
 # we're going to be mucking about, so we need to be root/sudo'd
 if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root" 1>&2
@@ -51,10 +50,15 @@ fi
 
 
 # symlink proper library wrapper into bin
-echo "Which PHP library to use, pecl/gearman or PEAR::Net_Gearman?"
-select PHPLIB in "pecl" "pear"; do
+
+if [ $1 != "" ]; then
+  PHPLIB = $1
+else
+  echo "Which PHP library to use, pecl/gearman or PEAR::Net_Gearman?"
+  select PHPLIB in "pecl" "pear"; do
     break
-done
+  done
+fi
 
 # create and populate installation folder
 mkdir -p ${INSTALL_DIR}
